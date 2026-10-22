@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # COMPILER_GROUP_TWENTY_FOUR
 A group assignment on Introduction to Compilers
 
@@ -55,3 +56,7 @@ Its responsibilities will include:
 ## Project Status
 
 The language design is proposed and awaiting group agreement. Phase 1 will begin after the group confirms the language specification and development setup.
+=======
+# COMPILER_GROUP_16
+A group compiler development project implementing five phases: lexical analysis (scanner), syntax analysis (parser), semantic analysis and intermediate representation (IR) generation, code generation, and code optimization.
+>>>>>>> f84ee8e1d7b6f0f751811ac6528452cd8eb029c9
