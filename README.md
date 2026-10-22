@@ -51,6 +51,3 @@ The scanner is expected to:
 - **Code editor:** Visual Studio Code
 - **Version control:** Git and GitHub
 
-## Current Progress
-
-We are at the planning stage, where we are organizing the language features and preparing the development environment. Our
