@@ -280,6 +280,7 @@ private void scanIdentifier() {
                     advance();
                     addToken(TokenType.NOT_EQUAL);
                 } else {
+                    System.out.println("hello group 16");
                     System.out.println(
                             "Invalid character at line " + line + ": " + c
                     );
