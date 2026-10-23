@@ -117,9 +117,11 @@ public class Scanner {
         }
 
         if (isAtEnd()) {
+           
             System.out.println(
                     "Unterminated string starting on line " + line
             );
+             System.out.println("good job");
             return;
         }
 
