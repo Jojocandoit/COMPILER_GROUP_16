@@ -1,6 +1,6 @@
 package com.compilergroup.minilang;
-
 public enum TokenType {
+
     // Keywords
     SET,
     DISPLAY,
@@ -10,36 +10,31 @@ public enum TokenType {
     FOR,
     END,
 
-    // Variable names and values
+    // Identifiers and values
     IDENTIFIER,
     INTEGER,
     DECIMAL,
     STRING,
 
-    // Arithmetic operators
+    // Operators
     PLUS,
     MINUS,
     MULTIPLY,
     DIVIDE,
-
-    // Comparison operators
-    GREATER_THAN,
-    LESS_THAN,
-    GREATER_EQUAL,
-    LESS_EQUAL,
+    ASSIGN,
     EQUAL_EQUAL,
     NOT_EQUAL,
-
-    // Assignment operator
-    ASSIGN,
+    GREATER_THAN,
+    GREATER_EQUAL,
+    LESS_THAN,
+    LESS_EQUAL,
 
     // Symbols
     LEFT_PAREN,
     RIGHT_PAREN,
     SEMICOLON,
-
-    // Other
     NEWLINE,
-    EOF,
-    INVALID
+
+    // End of file
+    EOF
 }

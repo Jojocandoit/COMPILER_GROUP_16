@@ -1,62 +1,53 @@
-<<<<<<< HEAD
-# COMPILER_GROUP_TWENTY_FOUR
-A group assignment on Introduction to Compilers
+# COMPILER_GROUP_SIXTEEN
 
-# COMPILER_GROUP_TWENTY_FOUR
+*A Group 16 project for Introduction to Compilers.*
 
-A group assignment on Introduction to Compilers.
+## About Our Project
 
-## Project Overview
+Our group is working on a compiler that will translate programs written in a small programming language into a form a computer can process. We plan to build it step by step, with each stage handling a different part of the translation.
 
-This project involves designing and implementing a compiler for a proposed mini programming language called **MiniLang**. The language design is a proposal for the group to review and agree on before implementation.
+## Our Proposed Language: MiniLang
 
-The compiler will be developed in phases, with each phase contributing to the complete compilation process.
+We are proposing a simple language called **MiniLang**. It is intended to support basic programming features, making it suitable for learning how a compiler works.
 
-## Proposed Language: MiniLang
+The planned features include:
 
-MiniLang is a proposed mini programming language designed to support basic programming constructs, including:
+- Declaring and assigning values to variables
+- Working with integers, decimal numbers, and strings
+- Performing arithmetic and comparison operations
+- Displaying output using `DISPLAY`
+- Making decisions with `IF` and `ELSE`
+- Repeating instructions with `WHILE` and `FOR`
+- Adding comments with `//`
 
-- Variable declaration and assignment
-- Integer, decimal, and string values
-- Arithmetic and comparison operations
-- Output using `DISPLAY`
-- Conditional statements using `IF` and `ELSE`
-- Loops using `WHILE` and `FOR`
-- Comments using `//`
+We will finalize these features as a group before moving fully into implementation.
 
-The final language specification will be confirmed by the group before implementation.
+## How We Plan to Build the Compiler
 
-## Compiler Development Phases
+Our work is divided into five main stages:
 
-1. **Phase 1: Scanner** — Recognizes tokens such as keywords, identifiers, literals, operators, and symbols.
-2. **Phase 2: Parser** — Checks whether the token sequence follows the language grammar.
-3. **Phase 3: Semantic Analysis and Intermediate Representation** — Checks semantic rules and develops an intermediate representation.
-4. **Phase 4: Code Generation** — Translates the program into the selected target representation.
-5. **Phase 5: Optimization and Final Demonstration** — Improves the generated representation and demonstrates the completed compiler.
+1. **Scanner:** Reads the source code and separates it into tokens, such as keywords, names, and operators.
+2. **Parser:** Checks whether the tokens follow the rules of our language.
+3. **Semantic Analysis and Intermediate Representation:** Checks whether the program makes sense and prepares an intermediate form for the next stages.
+4. **Code Generation:** Converts the intermediate form into the target representation we choose.
+5. **Optimization and Final Demonstration:** Looks for ways to improve the generated code and demonstrates the finished compiler.
 
-## Phase 1: Scanner
+## Our First Stage: The Scanner
 
-The scanner will read NexLang source code and recognize the tokens required by the proposed language.
+We will start by developing the scanner. Its job is to read the source program and identify the different parts of the code.
 
-Its responsibilities will include:
+The scanner is expected to:
 
-- Identifying keywords and identifiers
-- Recognizing integer, decimal, and string literals
-- Recognizing operators and punctuation
-- Handling whitespace and comments
-- Reporting invalid characters or malformed tokens
+- Recognize keywords and variable names
+- Identify numbers and strings
+- Detect operators and punctuation marks
+- Skip unnecessary spaces and handle comments
+- Report characters or tokens that are not valid in our language
 
-## Development Tools
+## Tools We Plan to Use
 
-- **Programming language:** Java 26
+- **Programming language:** Java
 - **Build tool:** Apache Maven
 - **Code editor:** Visual Studio Code
 - **Version control:** Git and GitHub
 
-## Project Status
-
-The language design is proposed and awaiting group agreement. Phase 1 will begin after the group confirms the language specification and development setup.
-=======
-# COMPILER_GROUP_16
-A group compiler development project implementing five phases: lexical analysis (scanner), syntax analysis (parser), semantic analysis and intermediate representation (IR) generation, code generation, and code optimization.
->>>>>>> f84ee8e1d7b6f0f751811ac6528452cd8eb029c9

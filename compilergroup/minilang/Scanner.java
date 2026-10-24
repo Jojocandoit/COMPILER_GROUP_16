@@ -170,78 +170,87 @@ public class Scanner {
         }
 
         switch (c) {
+            case ' ':
+            case '\r':
+            case '\t':
+                break;
 
-    case ' ':
-    case '\r':
-    case '\t':
-        break;
+            case '\n':
+                tokens.add(new Token(TokenType.NEWLINE, "\\n", line));
+                line++;
+                break;
 
-    case '\n':
-        tokens.add(new Token(TokenType.NEWLINE, "\\n", line));
-        line++;
-        break;
+            case '+':
+                addToken(TokenType.PLUS);
+                break;
 
-    case '+':
-        addToken(TokenType.PLUS);
-        break;
+            case '-':
+                addToken(TokenType.MINUS);
+                break;
 
-    case '-':
-        addToken(TokenType.MINUS);
-        break;
+            case '*':
+                addToken(TokenType.MULTIPLY);
+                break;
 
-    case '*':
-        addToken(TokenType.MULTIPLY);
-        break;
+            case '/':
+                addToken(TokenType.DIVIDE);
+                break;
 
-    case '/':
-        addToken(TokenType.DIVIDE);
-        break;
+            case '=':
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.EQUAL_EQUAL);
+                } else {
+                    addToken(TokenType.ASSIGN);
+                }
+                break;
 
-    case '=':
-        if (peek() == '=') {
-            advance();
-            addToken(TokenType.EQUAL_EQUAL);
-        } else {
-            addToken(TokenType.ASSIGN);
+            case '>':
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.GREATER_EQUAL);
+                } else {
+                    addToken(TokenType.GREATER_THAN);
+                }
+                break;
+
+            case '<':
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.LESS_EQUAL);
+                } else {
+                    addToken(TokenType.LESS_THAN);
+                }
+                break;
+
+            case '!':
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.NOT_EQUAL);
+                } else {
+                    System.out.println(
+                            "Invalid character at line " + line + ": " + c
+                    );
+                }
+                break;
+
+            case '(':
+                addToken(TokenType.LEFT_PAREN);
+                break;
+
+            case ')':
+                addToken(TokenType.RIGHT_PAREN);
+                break;
+
+            case ';':
+                addToken(TokenType.SEMICOLON);
+                break;
+
+            default:
+                System.out.println(
+                        "Character not handled at line " + line + ": " + c
+                );
+                break;
         }
-        break;
-
-    case '>':
-        if (peek() == '=') {
-            advance();
-            addToken(TokenType.GREATER_EQUAL);
-        } else {
-            addToken(TokenType.GREATER_THAN);
-        }
-        break;
-
-    case '<':
-        if (peek() == '=') {
-            advance();
-            addToken(TokenType.LESS_EQUAL);
-        } else {
-            addToken(TokenType.LESS_THAN);
-        }
-        break;
-
-    case '!':
-        if (peek() == '=') {
-            advance();
-            addToken(TokenType.NOT_EQUAL);
-        } else {
-            System.out.println(
-                    "Invalid character at line " + line + ": " + c
-            );
-        }
-        break;
-
-    default:
-        System.out.println(
-                "Character not handled at line " + line + ": " + c
-        );
-        break;
-}
-        
     }
 }
-    
