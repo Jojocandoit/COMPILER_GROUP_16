@@ -33,6 +33,7 @@ public enum TokenType {
     LEFT_PAREN,
     RIGHT_PAREN,
     SEMICOLON,
+    COMMA,
     NEWLINE,
 
     // End of file

@@ -243,7 +243,7 @@ public class Scanner {
                 break;
 
             case ';':
-                addToken(TokenType.SEMICOLON);
+                addToken(TokenType.COMMA);
                 break;
 
             default:
