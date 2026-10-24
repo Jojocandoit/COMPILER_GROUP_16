@@ -1,6 +1,5 @@
 package com.compilergroup.minilang;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,16 +139,19 @@ public class Scanner {
         return tokens;
     }
 
+    private void skipComment() {
+    while (peek() != '\n' && !isAtEnd()) {
+        advance();
+    }
+}
     private void scanToken() {
         char c = advance();
 
         // Ignore comments beginning with //
-        if (c == '/' && peek() == '/') {
-            while (peek() != '\n' && !isAtEnd()) {
-                advance();
-            }
-            return;
-        }
+      if (c == '/' && peek() == '/') {
+    skipComment();
+    return;
+}
 
         // Recognize identifiers and keywords
         if (isLetter(c)) {
@@ -176,7 +178,7 @@ public class Scanner {
                 break;
 
             case '\n':
-                tokens.add(new Token(TokenType.NEWLINE, "\\n", line));
+                addToken(TokenType.NEWLINE);
                 line++;
                 break;
 
@@ -196,15 +198,6 @@ public class Scanner {
                 addToken(TokenType.DIVIDE);
                 break;
 
-            case '=':
-                if (peek() == '=') {
-                    advance();
-                    addToken(TokenType.EQUAL_EQUAL);
-                } else {
-                    addToken(TokenType.ASSIGN);
-                }
-                break;
-
             case '>':
                 if (peek() == '=') {
                     advance();
@@ -220,6 +213,15 @@ public class Scanner {
                     addToken(TokenType.LESS_EQUAL);
                 } else {
                     addToken(TokenType.LESS_THAN);
+                }
+                break;
+
+            case '=':
+                if (peek() == '=') {
+                    advance();
+                    addToken(TokenType.EQUAL_EQUAL);
+                } else {
+                    addToken(TokenType.ASSIGN);
                 }
                 break;
 
@@ -243,12 +245,12 @@ public class Scanner {
                 break;
 
             case ';':
-                addToken(TokenType.COMMA);
+                addToken(TokenType.SEMICOLON);
                 break;
 
             default:
                 System.out.println(
-                    "Invalid character ''' + c +''' found at line" + line
+                        "Character not handled at line " + line + ": " + c
                 );
                 break;
         }
