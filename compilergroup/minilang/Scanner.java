@@ -248,7 +248,7 @@ public class Scanner {
 
             default:
                 System.out.println(
-                        "Character not handled at line " + line + ": " + c
+                    "Invalid character ''' + c +''' found at line" + line
                 );
                 break;
         }
