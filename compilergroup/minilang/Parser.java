@@ -169,4 +169,29 @@ public class Parser {
     private boolean isAtEnd() {
         return peek().getType() == TokenType.EOF;
     }
+    // Parse SET statements
+private Ast.Assignment parseAssignment() {
+
+    Token name = consume(
+            TokenType.IDENTIFIER,
+            "Expected a variable name."
+    );
+
+    consume(
+            TokenType.ASSIGN,
+            "Expected '=' after variable name."
+    );
+
+    Ast.Expr value = expression();
+
+    return new Ast.Assignment(name, value);
+}
+
+// Parse DISPLAY statements
+private Ast.Display parseDisplay() {
+
+    Ast.Expr value = expression();
+
+    return new Ast.Display(value);
+}
 }
