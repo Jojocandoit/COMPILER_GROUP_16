@@ -1,0 +1,172 @@
+package com.compilergroup.minilang;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Parser {
+
+    private final List<Token> tokens;
+    private final List<String> errors = new ArrayList<>();
+
+    private int current = 0;
+
+    public Parser(List<Token> tokens) {
+        this.tokens = tokens;
+    }
+
+    // This method begins parsing the complete program
+    public List<Ast.Stmt> parse() {
+
+        List<Ast.Stmt> statements = new ArrayList<>();
+
+        skipSeparators();
+
+        while (!isAtEnd()) {
+
+            try {
+                statements.add(parseStatement());
+                finishStatement();
+
+            } catch (ParseError error) {
+
+                errors.add(
+                        "Line " + error.getToken().getLine()
+                        + ": " + error.getMessage()
+                );
+
+                synchronize();
+            }
+
+            skipSeparators();
+        }
+
+        return statements;
+    }
+
+    // This method recognises the type of statement
+    private Ast.Stmt parseStatement() {
+
+        if (match(TokenType.SET)) {
+            return parseAssignment();
+        }
+
+        if (match(TokenType.DISPLAY)) {
+            return parseDisplay();
+        }
+
+        if (match(TokenType.IF)) {
+            return parseIf();
+        }
+
+        if (match(TokenType.WHILE)) {
+            return parseWhile();
+        }
+
+        if (match(TokenType.FOR)) {
+            return parseFor();
+        }
+
+        throw error(peek(), "Expected a valid statement.");
+    }
+
+    // This method ensures statements are separated
+    private void finishStatement() {
+
+        if (isAtEnd()
+                || check(TokenType.ELSE)
+                || check(TokenType.END)) {
+            return;
+        }
+
+        if (match(TokenType.NEWLINE, TokenType.SEMICOLON)) {
+            return;
+        }
+
+        throw error(peek(), "Expected a new line or ';' after statement.");
+    }
+
+    // This method skips newlines and statement separators
+    private void skipSeparators() {
+
+        while (match(
+                TokenType.NEWLINE,
+                TokenType.SEMICOLON
+        )) {
+            // Continue skipping separators
+        }
+    }
+
+    // This method checks whether the current token matches any supplied type
+    private boolean match(TokenType... types) {
+
+        for (TokenType type : types) {
+
+            if (check(type)) {
+
+                advance();
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // This method checks the current token type
+    private boolean check(TokenType type) {
+
+        if (isAtEnd()) {
+            return type == TokenType.EOF;
+        }
+
+        return peek().getType() == type;
+    }
+
+    // This method checks multiple possible ending tokens
+    private boolean checkAny(TokenType... types) {
+
+        for (TokenType type : types) {
+
+            if (check(type)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    // This method consumes a token or reports an error
+    private Token consume(TokenType type, String message) {
+
+        if (check(type)) {
+            return advance();
+        }
+
+        throw error(peek(), message);
+    }
+
+    // This method moves to the next token
+    private Token advance() {
+
+        if (!isAtEnd()) {
+            current++;
+        }
+
+        return previous();
+    }
+
+    // This method returns the current token
+    private Token peek() {
+        return tokens.get(current);
+    }
+
+    // This method returns the previously consumed token
+    private Token previous() {
+        return tokens.get(current - 1);
+    }
+
+    // This method checks whether all tokens have been processed
+    private boolean isAtEnd() {
+        return peek().getType() == TokenType.EOF;
+    }
+}
