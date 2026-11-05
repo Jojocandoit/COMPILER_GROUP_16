@@ -1,3 +1,4 @@
+
 package com.compilergroup.minilang;
 
 import java.util.ArrayList;
@@ -169,29 +170,120 @@ public class Parser {
     private boolean isAtEnd() {
         return peek().getType() == TokenType.EOF;
     }
+
+    // Start expression parsing
+    private Ast.Expr expression() {
+        return equality();
+    }
+
+    // Handle addition and subtraction
+    private Ast.Expr term() {
+
+        Ast.Expr expr = factor();
+
+        while (match(
+                TokenType.PLUS,
+                TokenType.MINUS
+        )) {
+
+            Token operator = previous();
+
+            Ast.Expr right = factor();
+
+            expr = new Ast.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
+    // Handle multiplication and division
+    private Ast.Expr factor() {
+
+        Ast.Expr expr = unary();
+
+        while (match(
+                TokenType.MULTIPLY,
+                TokenType.DIVIDE
+        )) {
+
+            Token operator = previous();
+
+            Ast.Expr right = unary();
+
+            expr = new Ast.Binary(expr, operator, right);
+        }
+
+        return expr;
+    }
+
+    // Handle negative numbers
+    private Ast.Expr unary() {
+
+        if (match(TokenType.MINUS)) {
+
+            Token operator = previous();
+
+            Ast.Expr right = unary();
+
+            return new Ast.Unary(operator, right);
+        }
+
+        return primary();
+    }
+
+    // Handle basic values and parentheses
+    private Ast.Expr primary() {
+
+        if (match(TokenType.INTEGER, TokenType.DECIMAL)) {
+            return new Ast.Literal(previous().getLexeme());
+        }
+
+        if (match(TokenType.STRING)) {
+            return new Ast.Literal(previous().getLexeme());
+        }
+
+        if (match(TokenType.IDENTIFIER)) {
+            return new Ast.Variable(previous());
+        }
+
+        if (match(TokenType.LEFT_PAREN)) {
+
+            Ast.Expr expr = expression();
+
+            consume(
+                    TokenType.RIGHT_PAREN,
+                    "Expected ')' after expression."
+            );
+
+            return new Ast.Grouping(expr);
+        }
+
+        throw error(peek(), "Expected an expression.");
+    }
+
     // Parse SET statements
-private Ast.Assignment parseAssignment() {
+    private Ast.Assignment parseAssignment() {
 
-    Token name = consume(
-            TokenType.IDENTIFIER,
-            "Expected a variable name."
-    );
+        Token name = consume(
+                TokenType.IDENTIFIER,
+                "Expected a variable name."
+        );
 
-    consume(
-            TokenType.ASSIGN,
-            "Expected '=' after variable name."
-    );
+        consume(
+                TokenType.ASSIGN,
+                "Expected '=' after variable name."
+        );
 
-    Ast.Expr value = expression();
+        Ast.Expr value = expression();
 
-    return new Ast.Assignment(name, value);
-}
+        return new Ast.Assignment(name, value);
+    }
 
-// Parse DISPLAY statements
-private Ast.Display parseDisplay() {
+    // Parse DISPLAY statements
+    private Ast.Display parseDisplay() {
 
-    Ast.Expr value = expression();
+        Ast.Expr value = expression();
 
-    return new Ast.Display(value);
-}
+        return new Ast.Display(value);
+    }
 }
