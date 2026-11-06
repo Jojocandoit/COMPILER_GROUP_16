@@ -286,4 +286,49 @@ public class Parser {
 
         return new Ast.Display(value);
     }
+
+// Handle equality operators == and != private Ast.Expr equality() {
+Ast.Expr expr = comparison();
+
+while (match(
+        TokenType.EQUAL_EQUAL,
+        TokenType.NOT_EQUAL
+)) {
+
+    Token operator = previous();
+
+    Ast.Expr right = comparison();
+
+    expr = new Ast.Binary(expr, operator, right);
+}
+
+return expr;
+}
+// Handle comparison operators >, >=, < and <= private Ast.Expr comparison() {
+Ast.Expr expr = term();
+
+while (match(
+        TokenType.GREATER_THAN,
+        TokenType.GREATER_EQUAL,
+        TokenType.LESS_THAN,
+        TokenType.LESS_EQUAL
+)) {
+
+    Token operator = previous();
+
+    Ast.Expr right = term();
+
+    expr = new Ast.Binary(expr, operator, right);
+}
+
+return expr;
+}
+
+
+
+
+
+
+
+    
 }
