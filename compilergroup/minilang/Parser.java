@@ -397,7 +397,78 @@ private void consumeHeaderEnd() {
 
     skipSeparators();
 }
+// Parse WHILE loops
+private Ast.While parseWhile() {
 
+    Ast.Expr condition = expression();
+
+    consumeHeaderEnd();
+
+    List<Ast.Stmt> body = parseBlock(TokenType.END);
+
+    consume(
+            TokenType.END,
+            "Expected END to close WHILE loop."
+    );
+
+    return new Ast.While(condition, body);
+}
+
+// Parse FOR loops
+private Ast.For parseFor() {
+
+    consume(
+            TokenType.LEFT_PAREN,
+            "Expected '(' after FOR."
+    );
+
+    consume(
+            TokenType.SET,
+            "Expected SET in FOR initializer."
+    );
+
+    Ast.Assignment initializer = parseAssignment();
+
+    consume(
+            TokenType.SEMICOLON,
+            "Expected ';' after FOR initializer."
+    );
+
+    Ast.Expr condition = expression();
+
+    consume(
+            TokenType.SEMICOLON,
+            "Expected ';' after FOR condition."
+    );
+
+    consume(
+            TokenType.SET,
+            "Expected SET in FOR increment."
+    );
+
+    Ast.Assignment increment = parseAssignment();
+
+    consume(
+            TokenType.RIGHT_PAREN,
+            "Expected ')' after FOR header."
+    );
+
+    consumeHeaderEnd();
+
+    List<Ast.Stmt> body = parseBlock(TokenType.END);
+
+    consume(
+            TokenType.END,
+            "Expected END to close FOR loop."
+    );
+
+    return new Ast.For(
+            initializer,
+            condition,
+            increment,
+            body
+    );
+}
 
 
 
