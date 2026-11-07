@@ -147,6 +147,7 @@ public class Parser {
     }
 
     // This method moves to the next token
+
     private Token advance() {
 
         if (!isAtEnd()) {
@@ -157,26 +158,31 @@ public class Parser {
     }
 
     // This method returns the current token
+
     private Token peek() {
         return tokens.get(current);
     }
 
     // This method returns the previously consumed token
+
     private Token previous() {
         return tokens.get(current - 1);
     }
 
     // This method checks whether all tokens have been processed
+
     private boolean isAtEnd() {
         return peek().getType() == TokenType.EOF;
     }
 
     // Start expression parsing
+
     private Ast.Expr expression() {
         return equality();
     }
 
     // Handle addition and subtraction
+
     private Ast.Expr term() {
 
         Ast.Expr expr = factor();
@@ -197,6 +203,7 @@ public class Parser {
     }
 
     // Handle multiplication and division
+
     private Ast.Expr factor() {
 
         Ast.Expr expr = unary();
@@ -217,6 +224,7 @@ public class Parser {
     }
 
     // Handle negative numbers
+
     private Ast.Expr unary() {
 
         if (match(TokenType.MINUS)) {
@@ -232,6 +240,7 @@ public class Parser {
     }
 
     // Handle basic values and parentheses
+
     private Ast.Expr primary() {
 
         if (match(TokenType.INTEGER, TokenType.DECIMAL)) {
@@ -262,6 +271,7 @@ public class Parser {
     }
 
     // Parse SET statements
+
     private Ast.Assignment parseAssignment() {
 
         Token name = consume(
@@ -280,7 +290,10 @@ public class Parser {
     }
 
     // Parse DISPLAY statements
+
     private Ast.Display parseDisplay() {
+
+
 
         Ast.Expr value = expression();
 
@@ -305,6 +318,8 @@ while (match(
 return expr;
 }
 // Handle comparison operators >, >=, < and <= private Ast.Expr comparison() {
+
+
 Ast.Expr expr = term();
 
 while (match(
@@ -324,7 +339,64 @@ while (match(
 return expr;
 }
 
+// Parse IF and ELSE statements
+private Ast.If parseIf() {
 
+    Ast.Expr condition = expression();
+
+    consumeHeaderEnd();
+
+    List<Ast.Stmt> thenBranch = parseBlock(
+            TokenType.ELSE,
+            TokenType.END
+    );
+
+    List<Ast.Stmt> elseBranch = new ArrayList<>();
+
+    if (match(TokenType.ELSE)) {
+
+        consumeHeaderEnd();
+
+        elseBranch = parseBlock(TokenType.END);
+    }
+
+    consume(
+            TokenType.END,
+            "Expected END to close IF statement."
+    );
+
+    return new Ast.If(condition, thenBranch, elseBranch);
+}
+
+// Parse statements inside IF and ELSE blocks
+private List<Ast.Stmt> parseBlock(TokenType... endings) {
+
+    List<Ast.Stmt> statements = new ArrayList<>();
+
+    skipSeparators();
+
+    while (!isAtEnd() && !checkAny(endings)) {
+
+        statements.add(parseStatement());
+
+        finishStatement();
+
+        skipSeparators();
+    }
+
+    return statements;
+}
+
+// Require a new line after an IF, WHILE or FOR header
+private void consumeHeaderEnd() {
+
+    consume(
+            TokenType.NEWLINE,
+            "Expected a new line after the statement header."
+    );
+
+    skipSeparators();
+}
 
 
 
