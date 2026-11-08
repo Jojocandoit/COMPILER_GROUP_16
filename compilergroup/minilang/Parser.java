@@ -1,4 +1,3 @@
-
 package com.compilergroup.minilang;
 
 import java.util.ArrayList;
@@ -469,7 +468,46 @@ private Ast.For parseFor() {
             body
     );
 }
+// Return errors found during parsing
+public List<String> getErrors() {
+    return errors;
+}
 
+// Create a syntax error
+private ParseError error(Token token, String message) {
+    return new ParseError(token, message);
+}
+
+// Recover after an error and continue parsing
+private void synchronize() {
+
+    if (!isAtEnd()) {
+        advance();
+    }
+
+    while (!isAtEnd()) {
+
+        if (previous().getType() == TokenType.NEWLINE
+                || previous().getType() == TokenType.SEMICOLON) {
+            return;
+        }
+
+        switch (peek().getType()) {
+
+            case SET:
+            case DISPLAY:
+            case IF:
+            case ELSE:
+            case WHILE:
+            case FOR:
+            case END:
+                return;
+
+            default:
+                advance();
+        }
+    }
+}
 
 
 
