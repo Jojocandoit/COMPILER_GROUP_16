@@ -4,50 +4,73 @@
 
 ## About Our Project
 
-Our group is working on a compiler that will translate programs written in a small programming language into a form a computer can process. We plan to build it step by step, with each stage handling a different part of the translation.
+Our group is developing a compiler that translates programs written in a simple programming language into a form that a computer can process.
 
-## Our Proposed Language: MiniLang
+The project is being developed in stages, with each stage responsible for a specific part of the compilation process.
 
-We are proposing a simple language called **MiniLang**. It is intended to support basic programming features, making it suitable for learning how a compiler works.
+## Our Programming Language: MiniLang
 
-The planned features include:
+We are developing a simple programming language called **MiniLang**. It supports basic programming concepts and is designed to demonstrate how a compiler works.
+
+The language supports features such as:
 
 - Declaring and assigning values to variables
 - Working with integers, decimal numbers, and strings
 - Performing arithmetic and comparison operations
 - Displaying output using `DISPLAY`
-- Making decisions with `IF` and `ELSE`
-- Repeating instructions with `WHILE` and `FOR`
-- Adding comments with `//`
+- Making decisions using `IF` and `ELSE`
+- Repeating instructions using `WHILE` and `FOR`
+- Adding comments using `//`
 
-We will finalize these features as a group before moving fully into implementation.
+## Compiler Development Stages
 
-## How We Plan to Build the Compiler
+Our project is divided into five main stages:
 
-Our work is divided into five main stages:
+1. **Scanner (Lexical Analysis):** Reads source code and separates it into tokens, including keywords, identifiers, numbers, and operators.
+2. **Parser (Syntax Analysis):** Checks whether the tokens follow the grammatical rules of MiniLang and constructs an Abstract Syntax Tree (AST).
+3. **Semantic Analysis and Intermediate Representation (IR):** Checks whether programs are logically meaningful, identifies semantic errors, verifies types and prepares an intermediate representation.
+4. **Code Generation:** Converts the intermediate representation into the selected target code or representation.
+5. **Optimization and Final Demonstration:** Improves the generated code where possible and demonstrates the completed compiler.
 
-1. **Scanner:** Reads the source code and separates it into tokens, such as keywords, names, and operators.
-2. **Parser:** Checks whether the tokens follow the rules of our language.
-3. **Semantic Analysis and Intermediate Representation:** Checks whether the program makes sense and prepares an intermediate form for the next stages.
-4. **Code Generation:** Converts the intermediate form into the target representation we choose.
-5. **Optimization and Final Demonstration:** Looks for ways to improve the generated code and demonstrates the finished compiler.
+## Current Development Progress: Phase 3
 
-## Our First Stage: The Scanner
+We have progressed through the initial stages of compiler development and are currently working on **Phase 3: Semantic Analysis and Intermediate Representation (IR)**.
 
-We will start by developing the scanner. Its job is to read the source program and identify the different parts of the code.
+Our current focus includes:
 
-The scanner is expected to:
+- Defining and checking data types
+- Managing variables through a symbol table
+- Detecting semantic errors
+- Checking type compatibility
+- Analysing expressions and assignments
+- Generating an intermediate representation of the source program
 
-- Recognize keywords and variable names
-- Identify numbers and strings
-- Detect operators and punctuation marks
-- Skip unnecessary spaces and handle comments
-- Report characters or tokens that are not valid in our language
+The successful completion of this phase will prepare the compiler for code generation and subsequent optimization.
 
-## Tools We Plan to Use
+## Technologies and Tools
 
-- **Programming language:** Java
-- **Build tool:** Apache Maven
-- **Code editor:** Visual Studio Code
-- **Version control:** Git and GitHub
+- **Programming Language:** Java
+- **Build Tool:** Apache Maven
+- **Code Editor:** Visual Studio Code
+- **Version Control:** Git and GitHub
 
+## Group Members
+
+| Index Number | Full Name | GitHub Username |
+|---|---|---|
+| PS/CSC/23/0171 | Emmanuella Odonkor Kwarteng | [SHS-Inspirations](https://github.com/SHS-Inspirations) |
+| PS/CSC/23/0172 | Andy Gyasi Asare | [AndyDhausty](https://github.com/AndyDhausty) |
+| PS/CSC/23/0174 | Arthur Collins | [Jojocandoit](https://github.com/Jojocandoit) |
+| PS/CSC/23/0175 | Acquah Boakye Emmanuel | [kay0004](https://github.com/kay0004) |
+| PS/CSC/23/0176 | Bismark Nyarko | [bismark432-hash](https://github.com/bismark432-hash) |
+| PS/CSC/23/0177 | Tahiru Tijani Dawuda | [OneCydeGH](https://github.com/OneCydeGH) |
+| PS/CSC/23/0178 | Tetteh Robert Kwaku | [Robbo77](https://github.com/Robbo77) |
+| PS/CSC/23/0179 | Adjei Collins | [Snilloc-7](https://github.com/Snilloc-7) |
+| PS/CSC/23/0180 | Evans Obiri Yeboah | [evans06-dot](https://github.com/evans06-dot) |
+| PS/CSC/23/0181 | Christian Donkor | [Techphlakes](https://github.com/Techphlakes) |
+
+---
+
+**Course:** Introduction to Compilers  
+**Group:** 16  
+**Project:** MiniLang Compiler
